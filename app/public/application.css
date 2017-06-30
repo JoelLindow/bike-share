@@ -1,0 +1,17 @@
+
+body {
+  font-family: 'Avenir Next', sans-serif;
+}
+
+img {
+    height: auto;
+    width: auto;
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.robots {
+  float: left;
+  padding-left: 10px;
+  padding-right: 10px;
+}
