@@ -46,7 +46,7 @@ def seed_trips_database(file_path)
     next if row[:zip_code] == '' || row[:zip_code] == nil
     row[:start_date] = DateTime.strptime(row[:start_date], "%m/%d/%Y %H:%M")
     row[:end_date] = DateTime.strptime(row[:end_date], "%m/%d/%Y %H:%M")
-    row[:weather_id] = Weather.find_by(date: row[:start_date].strftime("%m/%d/%Y")).id if Weather.find_by(date: row[:start_date])
+    row[:weather_id] = Weather.find_by(date: row[:start_date], zip_code: row[:zip_code]).id if Weather.find_by(date: row[:start_date], zip_code: row[:zip_code])
     row[:start_station_name] = "Stanford in Redwood City" if row[:start_station_name] == "Broadway at Main"
     row[:end_station_name] = "Stanford in Redwood City" if row[:end_station_name] == "Broadway at Main"
     row[:start_station_name] = "Santa Clara County Civic Center" if row[:start_station_name] == "San Jose Government Center"
@@ -75,7 +75,7 @@ def seed_weather_database(file_path)
     row.keep_if {|k,v|  k == :date || k == :max_temperature ||
                         k == :mean_temperature || k == :min_temperature ||
                         k == :mean_humidity || k == :mean_visibility ||
-                        k == :mean_wind_speed || k == :precipitation}
+                        k == :mean_wind_speed || k == :precipitation || k == :zip_code}
     row[:date] = Date.strptime(row[:date], "%m/%d/%Y")
     Weather.create!(row)
   end
